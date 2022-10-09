@@ -1,0 +1,48 @@
+{% include 'base.html' %}
+{% load static %}
+<style>
+    .gradient-custom {
+        /* fallback for old browsers */
+        background: #6a11cb;
+        
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+        
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+        }
+</style>
+<body class='gradient-custom'>
+    <div class="row row-cols-1 row-cols-md-3 mt-3 m-3">
+        {% for item in equipment %}
+          {% if item.quantity > 0%}
+          <div class="col mb-4">
+            <!-- Card -->
+            <div class="card">
+        
+              <!--Card image-->
+              <div class="view overlay">
+                <img class="card-img-top" src="{% static item.image %}"
+                  alt="Card image cap">
+                <a href="#!">
+                  <div class="mask rgba-white-slight"></div>
+                </a>
+              </div>
+        
+              <!--Card content-->
+              <div class="card-body">
+                <!--Title-->
+                <h4 class="card-title">{{item.name}} - {{item.price}}zł/h</h4>
+                <!--Text-->
+                <p class="card-text">{{item.description}}</p> 
+                <p class="card-text">Dostępne: {{item.quantity}}</p> 
+                <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                <a href="{% url 'rent' item.id %}"><button type="button" class="btn btn-outline-primary">Rent</button></a>
+              </div>
+            </div>
+            <!-- Card -->
+          </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+</body>
